@@ -1,0 +1,136 @@
++r 
+Starting program: /u/abaroody/COS217-A4/1BDT/bdtBad1 
+
+Program received signal SIGABRT, Aborted.
+0x0000ffffbe5f50e8 in raise () from /lib64/libc.so.6
+Missing separate debuginfos, use: debuginfo-install glibc-2.17-222.sd7.aarch64
++break bdt_client.c:21
+Breakpoint 1 at 0x40272c: file bdt_client.c, line 21.
++r 
+The program being debugged has been started already.
+Start it from the beginning? (y or n) Starting program: /u/abaroody/COS217-A4/1BDT/bdtBad1 
+
+Breakpoint 1, main () at bdt_client.c:22
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:22:814:beg:0x40272c
++s
+BDT_insertPath (path=0x4035f0 "a/b/c") at bdtBad1.c:320
+/u/cos217/Assignment4/bdtBad1.c:320:8155:beg:0x402198
++n
+/u/cos217/Assignment4/bdtBad1.c:322:8181:beg:0x4021c4
++s
+BDT_traversePath (path=0x4035f0 "a/b/c") at bdtBad1.c:140
+/u/cos217/Assignment4/bdtBad1.c:140:3870:beg:0x401db4
++n
+/u/cos217/Assignment4/bdtBad1.c:141:3895:beg:0x401de0
++s
+BDT_traversePathFrom (path=0x4035f0 "a/b/c", curr=0x0) at bdtBad1.c:106
+/u/cos217/Assignment4/bdtBad1.c:106:2824:beg:0x401cbc
++n
+/u/cos217/Assignment4/bdtBad1.c:109:2884:beg:0x401ce8
++n
+/u/cos217/Assignment4/bdtBad1.c:110:2904:beg:0x401cf4
++n
+/u/cos217/Assignment4/bdtBad1.c:132:3655:beg:0x401d9c
++n
+BDT_traversePath (path=0x4035f0 "a/b/c") at bdtBad1.c:142
+/u/cos217/Assignment4/bdtBad1.c:142:3939:beg:0x401df4
++n
+BDT_insertPath (path=0x4035f0 "a/b/c") at bdtBad1.c:323
+/u/cos217/Assignment4/bdtBad1.c:323:8215:beg:0x4021d0
++s
+BDT_insertRestOfPath (path=0x4035f0 "a/b/c", parent=0x0) at bdtBad1.c:237
+/u/cos217/Assignment4/bdtBad1.c:237:6252:beg:0x401fac
++n
+/u/cos217/Assignment4/bdtBad1.c:238:6275:beg:0x401fb4
++n
+/u/cos217/Assignment4/bdtBad1.c:241:6332:beg:0x401fb8
++n
+/u/cos217/Assignment4/bdtBad1.c:245:6393:beg:0x401fc0
++n
+/u/cos217/Assignment4/bdtBad1.c:247:6419:beg:0x401fec
++n
+/u/cos217/Assignment4/bdtBad1.c:248:6441:beg:0x401ff8
++n
+/u/cos217/Assignment4/bdtBad1.c:265:6884:beg:0x402050
++n
+/u/cos217/Assignment4/bdtBad1.c:266:6926:beg:0x402064
++n
+/u/cos217/Assignment4/bdtBad1.c:268:6977:beg:0x402078
++n
+/u/cos217/Assignment4/bdtBad1.c:269:7008:beg:0x402084
++n
+/u/cos217/Assignment4/bdtBad1.c:271:7046:beg:0x402098
++n
+/u/cos217/Assignment4/bdtBad1.c:272:7075:beg:0x40209c
++n
+/u/cos217/Assignment4/bdtBad1.c:277:7255:beg:0x4020ac
++n
+/u/cos217/Assignment4/bdtBad1.c:278:7282:beg:0x4020b8
++n
+/u/cos217/Assignment4/bdtBad1.c:289:7559:beg:0x402100
++n
+/u/cos217/Assignment4/bdtBad1.c:295:7686:beg:0x402124
++n
+/u/cos217/Assignment4/bdtBad1.c:296:7704:beg:0x40212c
++n
+/u/cos217/Assignment4/bdtBad1.c:271:7046:beg:0x402140
++n
+/u/cos217/Assignment4/bdtBad1.c:272:7075:beg:0x40209c
++n
+/u/cos217/Assignment4/bdtBad1.c:277:7255:beg:0x4020ac
++n
+/u/cos217/Assignment4/bdtBad1.c:280:7320:beg:0x4020c4
++n
+/u/cos217/Assignment4/bdtBad1.c:281:7372:beg:0x4020d4
++n
+/u/cos217/Assignment4/bdtBad1.c:289:7559:beg:0x402100
++n
+/u/cos217/Assignment4/bdtBad1.c:295:7686:beg:0x402124
++n
+/u/cos217/Assignment4/bdtBad1.c:296:7704:beg:0x40212c
++n
+/u/cos217/Assignment4/bdtBad1.c:271:7046:beg:0x402140
++n
+/u/cos217/Assignment4/bdtBad1.c:272:7075:beg:0x40209c
++n
+/u/cos217/Assignment4/bdtBad1.c:277:7255:beg:0x4020ac
++n
+/u/cos217/Assignment4/bdtBad1.c:280:7320:beg:0x4020c4
++n
+/u/cos217/Assignment4/bdtBad1.c:281:7372:beg:0x4020d4
++n
+/u/cos217/Assignment4/bdtBad1.c:289:7559:beg:0x402100
++n
+/u/cos217/Assignment4/bdtBad1.c:295:7686:beg:0x402124
++n
+/u/cos217/Assignment4/bdtBad1.c:296:7704:beg:0x40212c
++n
+/u/cos217/Assignment4/bdtBad1.c:271:7046:beg:0x402140
++break bdtBad1.c:298
+Breakpoint 2 at 0x40214c: file bdtBad1.c, line 298.
++c
+Continuing.
+
+Breakpoint 2, BDT_insertRestOfPath (path=0x4035f0 "a/b/c", parent=0x0) at bdtBad1.c:299
+/u/cos217/Assignment4/bdtBad1.c:299:7746:beg:0x40214c
++n
+/u/cos217/Assignment4/bdtBad1.c:306:7926:beg:0x402154
++n
+/u/cos217/Assignment4/bdtBad1.c:307:7950:beg:0x402160
++n
+/u/cos217/Assignment4/bdtBad1.c:308:7973:beg:0x402170
++n
+/u/cos217/Assignment4/bdtBad1.c:313:8069:beg:0x402184
++n
+BDT_insertPath (path=0x4035f0 "a/b/c") at bdtBad1.c:324
+/u/cos217/Assignment4/bdtBad1.c:324:8259:beg:0x4021dc
++n
+
+Program received signal SIGABRT, Aborted.
+0x0000ffffbe5f50e8 in raise () from /lib64/libc.so.6
++quit
+A debugging session is active.
+
+	Inferior 1 [process 13675] will be killed.
+
+Quit anyway? (y or n) 
