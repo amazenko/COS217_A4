@@ -119,7 +119,7 @@ the error manifests itself or is "noticed" by the client.
 ---------------------------------------------------------------
          ./bdtBad2        BDT_newNode
 ---------------------------------------------------------------
-         ./bdtBad3        
+         ./bdtBad3        BDT_unlinkParentToChild
 ===============================================================
 
 For bdtBad4, you do not have to find the bug. Instead, indicate what
