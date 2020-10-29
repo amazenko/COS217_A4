@@ -135,6 +135,13 @@ For bdtBad5, you do not have to find the bug. Instead, indicate one
 hypothesis for how the program could crash within the DynArray module,
 which we promise is itself correct:
 
+The problem is that the DynArray_map function calls BDT_strlenAccumulate
+with a buggy node. The problem here isn't in the DynArray
+representation, but rather in the information that the BDT has stored in
+the DynArray. The program crashes in the DynArray because the data it
+has stored is faulty, and the BDT method it calls when it is mapping
+catches this fault. However, as far as the error system is concerned,
+the bug appeared in DynArray_map.
 
 
 ------------------------------------------------------------------------
