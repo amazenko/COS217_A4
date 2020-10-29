@@ -126,7 +126,10 @@ For bdtBad4, you do not have to find the bug. Instead, indicate what
 is different about trying to debug this executable in gdb versus the
 other three:
 
-
+The difference is that there isn't an error in the way the BDT is
+created or handled, but instead the way the BDT is printed to a string.
+This executable provides the correct information, unlike the first 3,
+but makes a mistake in the way that it represents the BDT in a string.
 
 For bdtBad5, you do not have to find the bug. Instead, indicate one
 hypothesis for how the program could crash within the DynArray module,
