@@ -24,6 +24,19 @@ boolean Checker_Node_isValid(Node n) {
       return FALSE;
    }
 
+   /* Sample check that the child is not null. */
+   if(Node_getNumChildren(n) < 0){
+      fprintf(stderr, "Node has a negative number of children\n");
+      return FALSE;
+   }
+
+   npath = Node_getPath(n);
+   if(npath == NULL || strlen(npath)<1){
+      fprintf(stderr, "Node has invalid path\n");
+      return FALSE;
+   }
+      
+        
    parent = Node_getParent(n);
    if(parent != NULL) {
       npath = Node_getPath(n);
