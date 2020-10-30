@@ -26,7 +26,6 @@ static size_t count;
    Starting at the parameter curr, traverses as far down
    the hierarchy as possible while still matching the path
    parameter.
-
    Returns a pointer to the farthest matching Node down that path,
    or NULL if there is no node in curr's hierarchy that matches
    a prefix of the path
@@ -46,7 +45,7 @@ static Node DT_traversePathFrom(char* path, Node curr) {
    else if(!strncmp(path, Node_getPath(curr), strlen(Node_getPath(curr)))) {
       for(i = 0; i < Node_getNumChildren(curr); i++) {
          found = DT_traversePathFrom(path,
-                                Node_getChild(curr, i));
+                                     Node_getChild(curr, i));
          if(found != NULL)
             return found;
       }
@@ -78,7 +77,6 @@ static void DT_removePathFrom(Node curr) {
 /*
    Given a prospective parent and child Node,
    adds child to parent's children list, if possible
-
    If not possible, destroys the hierarchy rooted at child
    and returns PARENT_CHILD_ERROR, otherwise, returns SUCCESS.
 */
@@ -97,15 +95,11 @@ static int DT_linkParentToChild(Node parent, Node child) {
 /*
    Inserts a new path into the tree rooted at parent, or, if
    parent is NULL, as the root of the data structure.
-
    If a Node representing path already exists, returns ALREADY_IN_TREE
-
    If there is an allocation error in creating any of the new nodes or
    their fields, returns MEMORY_ERROR
-
    If there is an error linking any of the new nodes,
    returns PARENT_CHID_ERROR
-
    Otherwise, returns SUCCESS
 */
 static int DT_insertRestOfPath(char* path, Node parent) {
@@ -228,10 +222,9 @@ boolean DT_containsPath(char* path) {
 /*
   Removes the directory hierarchy rooted at path starting from Node
   curr. If curr is the data structure's root, root becomes NULL.
-
   Returns NO_SUCH_PATH if curr is not the Node for path,
   and SUCCESS otherwise.
- */
+*/
 static int DT_rmPathAt(char* path, Node curr) {
 
    Node parent;
