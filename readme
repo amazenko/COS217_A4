@@ -3,12 +3,12 @@ Assignment 4 readme File
 ------------------------------------------------------------------------
 Student 1: What is your name?
 
-
+Alex Baroody
 
 ------------------------------------------------------------------------
 Student 2: What is your name?
 
-
+Austen Mazenko
 
 ------------------------------------------------------------------------
 Student 1: What authorized sources of information did you use to
@@ -115,23 +115,33 @@ the error manifests itself or is "noticed" by the client.
 
       Executable         Function with the underlying error
 ===============================================================
-         ./bdtBad1        
+         ./bdtBad1        BDT_insertPath
 ---------------------------------------------------------------
-         ./bdtBad2        
+         ./bdtBad2        BDT_newNode
 ---------------------------------------------------------------
-         ./bdtBad3        
+         ./bdtBad3        BDT_unlinkParentToChild
 ===============================================================
 
 For bdtBad4, you do not have to find the bug. Instead, indicate what
 is different about trying to debug this executable in gdb versus the
 other three:
 
-
+The difference is that there isn't an error in the way the BDT is
+created or handled, but instead the way the BDT is printed to a string.
+This executable provides the correct information, unlike the first 3,
+but makes a mistake in the way that it represents the BDT in a string.
 
 For bdtBad5, you do not have to find the bug. Instead, indicate one
 hypothesis for how the program could crash within the DynArray module,
 which we promise is itself correct:
 
+The problem is that the DynArray_map function calls BDT_strlenAccumulate
+with a buggy node. The problem here isn't in the DynArray
+representation, but rather in the information that the BDT has stored in
+the DynArray. The program crashes in the DynArray because the data it
+has stored is faulty, and the BDT method it calls when it is mapping
+catches this fault. However, as far as the error system is concerned,
+the bug appeared in DynArray_map.
 
 
 ------------------------------------------------------------------------
