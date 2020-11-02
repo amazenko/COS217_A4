@@ -15,6 +15,9 @@
    A node structure represents a directory in the directory tree
 */
 struct node {
+   /* the type of node */
+   boolean isFile;
+
    /* the full path of this directory */
    char* path;
 
@@ -25,6 +28,9 @@ struct node {
    /* the subdirectories of this directory
       stored in sorted order by pathname */
    DynArray_T children;
+
+   /* the contents of the file if this node is a file rather than a directory */
+   void* fileContents;
 };
 
 
@@ -60,7 +66,7 @@ static char* Node_buildPath(Node n, const char* dir) {
 }
 
 /* see node.h for specification */
-Node Node_create(const char* dir, Node parent){
+Node Node_createDir(const char* dir, Node parent){
 
    Node new;
 
