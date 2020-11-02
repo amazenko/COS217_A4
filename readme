@@ -148,6 +148,18 @@ the bug appeared in DynArray_map.
 What are your critiques of the given DT implementations, as
 specified in Step 2.5?
 
+The first thing we noticed was that Node_linkChild, Node_unlinkChild,
+and Node_addChild seem to have functionality that is more suited to the
+DT module.
 
+Second, we noticed that DT_traversePathFrom could be made more efficient
+if we accept the invariant that all of the children are in sorted order.
+As is, this function traverses the entire tree in search of the path,
+rather than systematically searching for the path.
+
+Third, we noticed that DT_insertRestOfPath has the macro
+"PARENT_CHILD_ERROR" listed in it's comment, but never returns it in the
+function. This might just be an oversight, but changing either the
+comment or the function would improve readability.
 
 ------------------------------------------------------------------------
