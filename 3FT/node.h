@@ -25,11 +25,25 @@ typedef struct node* Node;
    path (if it exists) prefixed to the directory string parameter,
    separated by a slash. It is also initialized with its parent link
    as the parent parameter value (but the parent itself is not changed
-   to link to the new Node.  The children links are initialized but
-   do not point to any children.
+   to link to the new Node). The children links are initialized but
+   do not point to any children. The file contents will stay as null.
 */
 
-Node Node_createDir(const char* dir, Node parent, boolean isFile);
+Node Node_createDir(const char* dir, Node parent);
+
+/*
+   Given a parent Node and a directory string dir, returns a new
+   Node structure or NULL if any allocation error occurs in creating
+   the node or its fields.
+
+   The new structure is initialized to have its path as the parent's
+   path (if it exists) prefixed to the directory string parameter,
+   separated by a slash. It is also initialized with its parent link
+   as the parent parameter value (but the parent itself is not changed
+   to link to the new Node).  The children links and the file content 
+   links are null.
+*/
+Node Node_createFile(const char* dir, Node parent);
 
 /*
   Destroys the entire hierarchy of Nodes rooted at n,
@@ -54,13 +68,15 @@ const char* Node_getPath(Node n);
 
 /*
   Returns the number of child directories n has.
+  Returns -1 if the Node is a file Node.
 */
 size_t Node_getNumChildren(Node n);
 
 /*
    Returns 1 if n has a child directory with path,
-   0 if it does not have such a child, and -1 if
-   there is an allocation error during search.
+   0 if it does not have such a child (including
+   if it is a file), and -1 if there is an
+   allocation error during search.
 
    If n does have such a child, and childID is not NULL, store the
    child's identifier in *childID. If n does not have such a child,
@@ -88,6 +104,7 @@ Node Node_getParent(Node n);
     in which case returns ALREADY_IN_TREE
   * parent is unable to allocate memory to store new child link,
     in which case returns MEMORY_ERROR
+  * parent is a file type, in which case returns NOT_A_DIRECTORY
  */
 int Node_linkChild(Node parent, Node child);
 

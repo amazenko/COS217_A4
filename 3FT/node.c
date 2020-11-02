@@ -95,6 +95,30 @@ Node Node_createDir(const char* dir, Node parent){
 }
 
 /* see node.h for specification */
+Node Node_createFile(const char* dir, Node parent) {
+   Node new;
+
+   assert(dir != NULL);
+
+   new = malloc(sizeof(struct node));
+   if(new == NULL)
+      return NULL;
+
+   new->path = Node_buildPath(parent, dir);
+
+   if(new->path == NULL) {
+      free(new);
+      return NULL;
+   }
+
+   new->parent = parent;
+
+   new->fileContents = NULL;
+
+   return new;
+}
+
+/* see node.h for specification */
 size_t Node_destroy(Node n) {
    size_t i;
    size_t count = 0;
@@ -102,12 +126,16 @@ size_t Node_destroy(Node n) {
 
    assert(n != NULL);
 
-   for(i = 0; i < DynArray_getLength(n->children); i++)
-   {
-      c = DynArray_get(n->children, i);
-      count += Node_destroy(c);
+   if (!n->isFile) {
+      for(i = 0; i < DynArray_getLength(n->children); i++)
+      {
+         c = DynArray_get(n->children, i);
+         count += Node_destroy(c);
+      }
+      DynArray_free(n->children);
    }
-   DynArray_free(n->children);
+   else 
+      free(n->fileContents);
 
    free(n->path);
    free(n);
@@ -116,19 +144,6 @@ size_t Node_destroy(Node n) {
    return count;
 }
 
-/* see node.h for specification */
-/*char* Node_getPath(Node n) {
-   char* pathCopy;
-
-   assert(n != NULL);
-
-   pathCopy = malloc(strlen(n->path)+1);
-   if(pathCopy == NULL)
-      return NULL;
-
-   return strcpy(pathCopy, n->path);
-}
-*/
 const char* Node_getPath(Node n) {
 
    assert(n != NULL);
@@ -149,7 +164,10 @@ int Node_compare(Node node1, Node node2) {
 size_t Node_getNumChildren(Node n) {
    assert(n != NULL);
 
-   return DynArray_getLength(n->children);
+   if (n->isFile)
+      return -1;
+   else
+      return DynArray_getLength(n->children);
 }
 
 /* see node.h for specification */
@@ -160,6 +178,9 @@ int Node_hasChild(Node n, const char* path, size_t* childID) {
 
    assert(n != NULL);
    assert(path != NULL);
+
+   if (n->isFile)
+      return 0;
 
    checker = Node_create(path, NULL);
    if(checker == NULL)
@@ -177,6 +198,9 @@ int Node_hasChild(Node n, const char* path, size_t* childID) {
 Node Node_getChild(Node n, size_t childID) {
    assert(n != NULL);
 
+   if (n->isFile)
+      return NULL;
+   
    if(DynArray_getLength(n->children) > childID)
       return DynArray_get(n->children, childID);
    else
@@ -198,6 +222,8 @@ int Node_linkChild(Node parent, Node child) {
    assert(parent != NULL);
    assert(child != NULL);
 
+   if(parent->isFile)
+      return NOT_A_DIRECTORY;
    if(Node_hasChild(parent, child->path, NULL))
       return ALREADY_IN_TREE;
    i = strlen(parent->path);
