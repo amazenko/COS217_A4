@@ -27,6 +27,8 @@ typedef struct node* Node;
    as the parent parameter value (but the parent itself is not changed
    to link to the new Node). The children links are initialized but
    do not point to any children. The file contents will stay as null.
+
+   If the parent Node is a file-type, returns NOT_A_DIRECTORY
 */
 
 Node Node_createDir(const char* dir, Node parent);
@@ -65,6 +67,11 @@ int Node_compare(Node node1, Node node2);
    Returns Node n's path.
 */
 const char* Node_getPath(Node n);
+
+/* 
+   Returns Node n's type in boolean form.
+*/
+boolean Node_getType(Node n);
 
 /*
   Returns the number of child directories n has.

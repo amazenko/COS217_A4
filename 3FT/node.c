@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------*/
 /* node.c                                                             */
-/* Author: Christopher Moretti                                        */
+/* Author: Alex Baroody                                               */
 /*--------------------------------------------------------------------*/
 
 #include <stdlib.h>
@@ -158,7 +158,12 @@ int Node_compare(Node node1, Node node2) {
    return strcmp(node1->path, node2->path);
 }
 
+/* see node.h for specification */
+boolean Node_getType(Node n) {
+   assert (n != NULL);
 
+   return n->isFile;
+}
 
 /* see node.h for specification */
 size_t Node_getNumChildren(Node n) {
