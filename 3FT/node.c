@@ -72,6 +72,8 @@ Node Node_createDir(const char* dir, Node parent){
 
    assert(dir != NULL);
 
+   assert(!Node_isFile(parent));
+
    new = malloc(sizeof(struct node));
    if(new == NULL)
       return NULL;

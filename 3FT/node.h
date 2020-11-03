@@ -71,7 +71,7 @@ const char* Node_getPath(Node n);
 /* 
    Returns Node n's type in boolean form.
 */
-boolean Node_getType(Node n);
+boolean Node_isFile(Node n);
 
 /*
   Returns the number of child directories n has.
