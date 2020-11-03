@@ -1,0 +1,174 @@
++r
+Starting program: /u/abaroody/COS217-A4/1BDT/bdtBad4 
+[Inferior 1 (process 14465) exited normally]
+Missing separate debuginfos, use: debuginfo-install glibc-2.17-222.sd7.aarch64
++break fprintf()
+Function "fprintf()" not defined.
+Make breakpoint pending on future shared library load? (y or [n]) Breakpoint 1 (fprintf()) pending.
++r
+Starting program: /u/abaroody/COS217-A4/1BDT/bdtBad4 
+[Inferior 1 (process 14480) exited normally]
++celar 1
+Undefined command: "celar".  Try "help".
++clear 1
+No breakpoint at 1.
++break printf
+Breakpoint 2 at 0xffffbe611fd0
++r 
+Starting program: /u/abaroody/COS217-A4/1BDT/bdtBad4 
+[Inferior 1 (process 14490) exited normally]
++break fprintf
+Breakpoint 3 at 0xffffbe611f4c
++r 
+Starting program: /u/abaroody/COS217-A4/1BDT/bdtBad4 
+
+Breakpoint 3, 0x0000ffffbe611f4c in fprintf () from /lib64/libc.so.6
++n
+Single stepping until exit from function fprintf,
+which has no line number information.
+main () at bdt_client.c:46
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:46:1852:beg:0x4029c8
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:47:1866:beg:0x4029d0
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:48:1920:beg:0x402a04
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:53:2116:beg:0x402a38
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:54:2162:beg:0x402a6c
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:55:2207:beg:0x402aa0
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:56:2250:beg:0x402ad4
++print temp
+$1 = 0x430120 "a\na/b\na/b/c\na/b/d\n"
++c
+Continuing.
+
+Breakpoint 3, 0x0000ffffbe611f4c in fprintf () from /lib64/libc.so.6
++n
+Single stepping until exit from function fprintf,
+which has no line number information.
+main () at bdt_client.c:57
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:57:2283:beg:0x402af0
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:58:2297:beg:0x402af8
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:61:2427:beg:0x402b2c
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:62:2475:beg:0x402b60
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:63:2522:beg:0x402b94
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:64:2565:beg:0x402bc8
++n
+
+Breakpoint 3, 0x0000ffffbe611f4c in fprintf () from /lib64/libc.so.6
++n
+Single stepping until exit from function fprintf,
+which has no line number information.
+main () at bdt_client.c:65
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:65:2598:beg:0x402be4
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:66:2612:beg:0x402bec
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:67:2662:beg:0x402c20
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:68:2711:beg:0x402c54
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:69:2761:beg:0x402c88
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:70:2813:beg:0x402cbc
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:71:2865:beg:0x402cf0
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:72:2908:beg:0x402d24
++n
+
+Breakpoint 3, 0x0000ffffbe611f4c in fprintf () from /lib64/libc.so.6
++n
+Single stepping until exit from function fprintf,
+which has no line number information.
+main () at bdt_client.c:73
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:73:2941:beg:0x402d40
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:78:3160:beg:0x402d48
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:79:3207:beg:0x402d7c
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:80:3256:beg:0x402db0
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:81:3306:beg:0x402de4
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:82:3357:beg:0x402e18
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:83:3401:beg:0x402e4c
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:84:3446:beg:0x402e80
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:85:3494:beg:0x402eb4
++n
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:86:3544:beg:0x402ee8
++s
+BDT_toString () at bdtBad4.c:467
+/u/cos217/Assignment4/bdtBad4.c:467:11643:beg:0x402680
++n
+/u/cos217/Assignment4/bdtBad4.c:468:11694:beg:0x402688
++n
+/u/cos217/Assignment4/bdtBad4.c:470:11719:beg:0x40268c
++n
+/u/cos217/Assignment4/bdtBad4.c:473:11761:beg:0x4026a8
++n
+/u/cos217/Assignment4/bdtBad4.c:474:11793:beg:0x4026bc
++n
+/u/cos217/Assignment4/bdtBad4.c:476:11843:beg:0x4026d4
++n
+/u/cos217/Assignment4/bdtBad4.c:479:11954:beg:0x4026e8
++n
+/u/cos217/Assignment4/bdtBad4.c:480:11987:beg:0x4026f4
++n
+/u/cos217/Assignment4/bdtBad4.c:485:12064:beg:0x402710
++s
+DynArray_map (oDynArray=0x430120, pfApply=0x4025dc <BDT_strcatAccumulate>, pvExtra=0x430220)
+    at dynarray.c:246
+/u/abaroody/COS217-A4/1BDT/dynarray.c:246:6201:beg:0x40134c
++n
+/u/abaroody/COS217-A4/1BDT/dynarray.c:247:6231:beg:0x401378
++n
+/u/abaroody/COS217-A4/1BDT/dynarray.c:248:6259:beg:0x4013a4
++n
+/u/abaroody/COS217-A4/1BDT/dynarray.c:250:6300:beg:0x4013d4
++n
+/u/abaroody/COS217-A4/1BDT/dynarray.c:251:6344:beg:0x4013dc
++s
+BDT_strcatAccumulate (str=0x430010 "a", acc=0x430220 "0\001C") at bdtBad4.c:452
+/u/cos217/Assignment4/bdtBad4.c:452:11192:beg:0x4025ec
++print str
+$2 = 0x430010 "a"
++print acc 
+$3 = 0x430220 "0\001C"
++n
+/u/cos217/Assignment4/bdtBad4.c:453:11216:beg:0x402618
++n
+/u/cos217/Assignment4/bdtBad4.c:455:11241:beg:0x402644
++n
+/u/cos217/Assignment4/bdtBad4.c:456:11281:beg:0x402670
++n
+DynArray_map (oDynArray=0x430120, pfApply=0x4025dc <BDT_strcatAccumulate>, pvExtra=0x430220)
+    at dynarray.c:250
+/u/abaroody/COS217-A4/1BDT/dynarray.c:250:6300:beg:0x401400
++n
+/u/abaroody/COS217-A4/1BDT/dynarray.c:251:6344:beg:0x4013dc
++n
+/u/abaroody/COS217-A4/1BDT/dynarray.c:250:6300:beg:0x401400
++n
+/u/abaroody/COS217-A4/1BDT/dynarray.c:251:6344:beg:0x4013dc
++s
+BDT_strcatAccumulate (str=0x430100 "a/b/c", acc=0x430220 "0\001Ca\na/b\n") at bdtBad4.c:452
+/u/cos217/Assignment4/bdtBad4.c:452:11192:beg:0x4025ec
++quit
+A debugging session is active.
+
+	Inferior 1 [process 14494] will be killed.
+
+Quit anyway? (y or n) 

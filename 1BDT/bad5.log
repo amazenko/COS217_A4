@@ -1,0 +1,98 @@
++r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) Starting program: /u/abaroody/COS217-A4/1BDT/bdtBad5 
+
+Program received signal SIGABRT, Aborted.
+0x0000ffffbe5f50e8 in raise () from /lib64/libc.so.6
++where
+#0  0x0000ffffbe5f50e8 in raise () from /lib64/libc.so.6
+#1  0x0000ffffbe5f6760 in abort () from /lib64/libc.so.6
+#2  0x0000ffffbe5ee5dc in __assert_fail_base () from /lib64/libc.so.6
+#3  0x0000ffffbe5ee694 in __assert_fail () from /lib64/libc.so.6
+#4  0x0000000000402584 in BDT_strlenAccumulate (str=0x0, pAcc=0xfffffffff088) at bdtBad5.c:440
+#5  0x0000000000401400 in DynArray_map (oDynArray=0x430010, 
+    pfApply=0x402544 <BDT_strlenAccumulate>, pvExtra=0xfffffffff088) at dynarray.c:251
+#6  0x00000000004026ec in BDT_toString () at bdtBad5.c:476
+#7  0x000000000040284c in main () at bdt_client.c:31
++complete break BDT_strlenAc
+break BDT_strlenAccumulate
++complete break BDT_strlenAccumulate
+break BDT_strlenAccumulate
++break BDT_strlenAccumulate
+Breakpoint 1 at 0x402558: file bdtBad5.c, line 440.
++r 
+The program being debugged has been started already.
+Start it from the beginning? (y or n) Starting program: /u/abaroody/COS217-A4/1BDT/bdtBad5 
+
+Breakpoint 1, BDT_strlenAccumulate (str=0x0, pAcc=0xfffffffff088) at bdtBad5.c:440
+/u/cos217/Assignment4/bdtBad5.c:440:10873:beg:0x402558
++print str
+$1 = 0x0
++print pAcc
+$2 = (size_t *) 0xfffffffff088
++print *pAcc
+$3 = 1
++n
+
+Program received signal SIGABRT, Aborted.
+0x0000ffffbe5f50e8 in raise () from /lib64/libc.so.6
++complete break BDT_toSt
+break BDT_toString
++complete break BDT_toString
+break BDT_toString
++break BDT_toString
+Breakpoint 2 at 0x402680: file bdtBad5.c, line 467.
++r 
+The program being debugged has been started already.
+Start it from the beginning? (y or n) Starting program: /u/abaroody/COS217-A4/1BDT/bdtBad5 
+
+Breakpoint 2, BDT_toString () at bdtBad5.c:467
+/u/cos217/Assignment4/bdtBad5.c:467:11643:beg:0x402680
++n
+/u/cos217/Assignment4/bdtBad5.c:468:11694:beg:0x402688
++n
+/u/cos217/Assignment4/bdtBad5.c:470:11719:beg:0x40268c
++n
+/u/cos217/Assignment4/bdtBad5.c:471:11741:beg:0x4026a0
++n
+/u/cos217/Assignment4/bdtBad5.c:491:12234:beg:0x40273c
++n
+main () at bdt_client.c:29
+/u/abaroody/COS217-A4/1BDT/bdt_client.c:29:1143:beg:0x4027e8
++c
+Continuing.
+
+Breakpoint 2, BDT_toString () at bdtBad5.c:467
+/u/cos217/Assignment4/bdtBad5.c:467:11643:beg:0x402680
++n
+/u/cos217/Assignment4/bdtBad5.c:468:11694:beg:0x402688
++n
+/u/cos217/Assignment4/bdtBad5.c:470:11719:beg:0x40268c
++n
+/u/cos217/Assignment4/bdtBad5.c:473:11761:beg:0x4026a8
++n
+/u/cos217/Assignment4/bdtBad5.c:474:11795:beg:0x4026c0
++n
+/u/cos217/Assignment4/bdtBad5.c:476:11845:beg:0x4026d8
++s
+DynArray_map (oDynArray=0x430010, pfApply=0x402544 <BDT_strlenAccumulate>, pvExtra=0xfffffffff088)
+    at dynarray.c:246
+/u/abaroody/COS217-A4/1BDT/dynarray.c:246:6201:beg:0x40134c
++n
+/u/abaroody/COS217-A4/1BDT/dynarray.c:247:6231:beg:0x401378
++n
+/u/abaroody/COS217-A4/1BDT/dynarray.c:248:6259:beg:0x4013a4
++n
+/u/abaroody/COS217-A4/1BDT/dynarray.c:250:6300:beg:0x4013d4
++n
+/u/abaroody/COS217-A4/1BDT/dynarray.c:251:6344:beg:0x4013dc
++s
+
+Breakpoint 1, BDT_strlenAccumulate (str=0x0, pAcc=0xfffffffff088) at bdtBad5.c:440
+/u/cos217/Assignment4/bdtBad5.c:440:10873:beg:0x402558
++print str
+$4 = 0x0
++n
+
+Program received signal SIGABRT, Aborted.
+0x0000ffffbe5f50e8 in raise () from /lib64/libc.so.6

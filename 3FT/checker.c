@@ -24,36 +24,45 @@ boolean Checker_Node_isValid(Node n) {
       return FALSE;
    }
 
-   /* Sample check that the child is not null. */
-   if(Node_getNumChildren(n) < 0){
-      fprintf(stderr, "Node has a negative number of children\n");
-      return FALSE;
-   }
-
+   /* Check that path exists and is well-defined. */
    npath = Node_getPath(n);
    if(npath == NULL || strlen(npath)<1){
       fprintf(stderr, "Node has invalid path\n");
       return FALSE;
    }
-
+   
+   /* Check that, if Node is a file, the children array
+      is NULL */
+   if (Node_isFile(n)) {
+      if(Node_getNumChildren(n) != -1) {
+         fprintf(stderr, "Node is a file but has a children array\n");
+         return FALSE;
+      }
+   }
 
    parent = Node_getParent(n);
    if(parent != NULL) {
       npath = Node_getPath(n);
 
-      /* Sample check that parent's path must be prefix of n's path */
+      /* Check that parent's path must be prefix of n's path */
       ppath = Node_getPath(parent);
       i = strlen(ppath);
       if(strncmp(npath, ppath, i)) {
          fprintf(stderr, "P's path is not a prefix of C's path\n");
          return FALSE;
       }
-      /* Sample check that n's path after parent's path + '/'
+      /* Check that n's path after parent's path + '/'
          must have no further '/' characters */
       rest = npath + i;
       rest++;
       if(strstr(rest, "/") != NULL) {
          fprintf(stderr, "C's path has grandchild of P's path\n");
+         return FALSE;
+      }
+   }
+   else{
+      if(strstr(npath, "/") != NULL) {
+         fprintf(stderr, "The path has a nonexistent child\n");
          return FALSE;
       }
    }
@@ -72,7 +81,7 @@ boolean Checker_Node_isValid(Node n) {
 */
 static boolean Checker_treeCheck(Node n) {
    size_t c;
-
+   char *previousPath;
    if(n != NULL) {
 
       /* Sample check on each non-root Node: Node must be valid */
@@ -84,11 +93,27 @@ static boolean Checker_treeCheck(Node n) {
       for(c = 0; c < Node_getNumChildren(n); c++)
       {
          Node child = Node_getChild(n, c);
+         if(c == 0){
+            previousPath = (char*) Node_getPath(child);
+         }
+         else{
+            if(strcmp((const char*)previousPath,
+                      Node_getPath(child)) >= 0){
+                  fprintf(stderr, "Children are incorrectly ordered\n");
+                  return FALSE;
+            }
+         }
 
          /* if recurring down one subtree results in a failed check
             farther down, passes the failure back up immediately */
          if(!Checker_treeCheck(child))
             return FALSE;
+
+         if(strcmp(Node_getPath(Node_getParent(child)),
+                      Node_getPath(n)) != 0){
+               fprintf(stderr, "Child's stored parent is wrong\n");
+               return FALSE;
+         }
       }
    }
    return TRUE;
@@ -99,12 +124,26 @@ boolean Checker_DT_isValid(boolean isInit, Node root, size_t count) {
 
    /* Sample check on a top-level data structure invariant:
       if the DT is not initialized, its count should be 0. */
-   if(!isInit)
+   if(!isInit){
       if(count != 0) {
          fprintf(stderr, "Not initialized, but count is not 0\n");
          return FALSE;
       }
-
+      if(root != NULL){
+         fprintf(stderr, "Not initialized, but root exists\n");
+         return FALSE;
+      }
+   }
+   else{
+      if(count == 0) {
+         fprintf(stderr, "Initialized, but incorrect # of nodes\n");
+         return FALSE;
+      }
+      if(root == NULL){
+         fprintf(stderr, "Initialized but has no root\n");
+         return FALSE;
+      }
+   }
    /* Now checks invariants recursively at each Node from the root. */
    return Checker_treeCheck(root);
 }
