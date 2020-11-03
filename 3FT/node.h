@@ -68,14 +68,13 @@ int Node_compare(Node node1, Node node2);
 */
 const char* Node_getPath(Node n);
 
-/* 
+/*
    Returns Node n's type in boolean form.
 */
 boolean Node_isFile(Node n);
 
 /*
   Returns the number of child directories n has.
-  Returns -1 if the Node is a file Node.
 */
 size_t Node_getNumChildren(Node n);
 
@@ -127,17 +126,19 @@ int Node_unlinkChild(Node parent, Node child);
 /*
   Creates a new Node such that the new Node's path is dir appended to
   n's path, separated by a slash, and that the new Node has no
-  children of its own. The new node's parent is n, and the new node is
-  added as a child of n.
+  children of its own (if a directory and isFile is false) and NULL
+  file contents. The new node's parent is n, and the new node is added
+  as a child of n.
 
-  (Reiterating for clarity: unlike with Node_create, parent *is*
-  changed so that the link is bidirectional.)
+  (Reiterating for clarity: unlike with Node_createDir and
+  Node_createFile, parent *is* changed so that the link is
+  bidirectional.)
 
   Returns SUCCESS upon completion, or:
   MEMORY_ERROR if the new Node cannot be created,
   ALREADY_IN_TREE if parent already has a child with that path
 */
-int Node_addChild(Node parent, const char* dir);
+int Node_addChild(Node parent, const char* dir, boolean isFile);
 
 /*
   Returns a string representation n, or NULL if there is an allocation

@@ -33,7 +33,7 @@ int main(void) {
 
    assert((nodeA = Node_createFile("a", NULL)) != NULL);
    assert(Node_getChild(nodeA, 0) == NULL);
-   assert(Node_getNumChildren(nodeA) == -1);
+   assert(Node_getNumChildren(nodeA) == 0);
    assert(Node_getParent(nodeA) == NULL);
    assert(Node_isFile(nodeA));
    assert(strcmp(Node_getPath(nodeA), "a") == 0);

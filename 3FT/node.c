@@ -10,6 +10,7 @@
 
 #include "dynarray.h"
 #include "node.h"
+#include "checker.h"
 
 /*
    A node structure represents a directory in the directory tree
@@ -187,7 +188,7 @@ size_t Node_getNumChildren(Node n) {
    assert(Checker_Node_isValid(n));
 
    if (n->isFile)
-      return -1;
+      return 0;
    else
       return DynArray_getLength(n->children);
 }
@@ -205,7 +206,7 @@ int Node_hasChild(Node n, const char* path, size_t* childID) {
    if (n->isFile)
       return NOT_A_DIRECTORY;
 
-   checker = Node_create(path, NULL);
+   checker = Node_createDir(path, NULL);
    if(checker == NULL)
       return -1;
    result = DynArray_bsearch(n->children, checker, &index,
@@ -224,7 +225,7 @@ Node Node_getChild(Node n, size_t childID) {
 
    if (n->isFile)
       return NULL;
-   
+
    if(DynArray_getLength(n->children) > childID)
       return DynArray_get(n->children, childID);
    else
@@ -297,7 +298,7 @@ int Node_unlinkChild(Node parent, Node child) {
 
 
 /* see node.h for specification */
-int Node_addChild(Node parent, const char* dir) {
+int Node_addChild(Node parent, const char* dir, boolean isFile) {
    Node new;
    int result;
 
@@ -306,9 +307,10 @@ int Node_addChild(Node parent, const char* dir) {
    assert(Checker_Node_isValid(parent));
 
    if (parent->isFile)
-      return NOT_A_DIRECTORY;
-   
-   new = Node_create(dir, parent);
+      new = Node_createFile(dir, parent);
+   else
+      new = Node_createDir(dir, parent);
+
    if(new == NULL)
       return PARENT_CHILD_ERROR;
 
