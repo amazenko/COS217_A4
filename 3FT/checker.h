@@ -22,6 +22,6 @@ boolean Checker_Node_isValid(Node n);
    representing the root of the hierarchy, and a size_t count
    representing the total number of directories in the hierarchy.
 */
-boolean Checker_DT_isValid(boolean isInit, Node root, size_t count);
+boolean Checker_FT_isValid(boolean isInit, Node root, size_t count);
 
 #endif
