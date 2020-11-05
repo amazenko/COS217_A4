@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------*/
 /* checker.c                                                          */
-/* Author:                                                            */
+/* Author(s): Alex Baroody and Austen Mazenko                         */
 /*--------------------------------------------------------------------*/
 
 #include <assert.h>
@@ -9,6 +9,7 @@
 #include "dynarray.h"
 #include "checker.h"
 
+/*--------------------------------------------------------------------*/
 
 /* see checker.h for specification */
 boolean Checker_Node_isValid(Node n) {

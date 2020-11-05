@@ -11,7 +11,7 @@
 
 
 /* see checker.h for specification */
-boolean Checker_Node_isValid(Node n) {
+static boolean Checker_Node_isValid(Node n) {
    Node parent;
    const char* npath;
    const char* ppath;

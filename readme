@@ -32,7 +32,15 @@ complete the assignment? COPY THE LIST of authorized sources of
 information given in the "Policies" web page to this section of the
 readme file, and edit it as appropriate.
 
+The course's lectures.
 
+The course's precepts.
+
+The course's website.
+
+The man pages on the armlab cluster.
+
+The course's current staff members outside of class time through Ed.
 
 ------------------------------------------------------------------------
 Student 1: What unauthorized sources of information did you use to
@@ -60,7 +68,7 @@ nature of the interaction, may additionally require the interaction
 being reported to the Committee on Discipline. Write "None" if you used
 no unauthorized sources of information.
 
-
+None.
 
 ------------------------------------------------------------------------
 Student 1: What is your assessment of the assignment? Was it helpful?
@@ -74,7 +82,13 @@ get better overthe years with feedback, however.
 Student 2: What is your assessment of the assignment? Was it helpful?
 Was it fun?
 
-
+The idea behind the assignment was actually very interesting, it was
+cool to see how trees work and approach a few different implementations
+from the binary directory tree to the file tree. That said, there were
+a few confusing parts as far as the precise wording of questions in
+parts 1 and 2 as well as inconsistencies in comments within the
+provided .h files. With these kinks worked out, however, I certainly
+think this is a keeper assignment for future years.
 
 ------------------------------------------------------------------------
 (optional) What information can you provide about your submission that
@@ -193,5 +207,13 @@ Third, we noticed that DT_insertRestOfPath has the macro
 "PARENT_CHILD_ERROR" listed in it's comment, but never returns it in the
 function. This might just be an oversight, but changing either the
 comment or the function would improve readability.
+
+Fourth, we noticed that DT_traversePath is completely auxiliary and
+doesn't really add anything as a static method could. The only apparent
+functionality is executing an assert statement before passing into
+DT_traversePathFrom, yet this assert is already included in that latter
+function so there is no net benefit. Similarly, DT_removePathFrom is
+not quite necessary either, but by at least executing the destroy
+method in Node it at least affects the program in some way.
 
 ------------------------------------------------------------------------

@@ -8,13 +8,6 @@
 
 #include "node.h"
 
-
-/*
-   Returns TRUE if the Node parameter n represents a directory entry
-   in a valid state, or FALSE otherwise.
-*/
-boolean Checker_Node_isValid(Node n);
-
 /*
    Returns TRUE if the hierarchy is in a valid state or FALSE
    otherwise.  The data structure's validity is based on a boolean

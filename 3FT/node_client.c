@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------*/
-/* ft_client.c                                                        */
-/* Author: Christopher Moretti                                        */
+/* node_client.c                                                      */
+/* Author: Alex Baroody and Austen Mazenko                            */
 /*--------------------------------------------------------------------*/
 
 #include <assert.h>

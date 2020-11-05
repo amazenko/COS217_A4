@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------*/
-/* ft.h                                                               */
-/* Author: Alex Baroody and Austen Mazenko                            */
+/* handler.c                                                          */
+/* Author(s): Alex Baroody and Austen Mazenko                         */
 /*--------------------------------------------------------------------*/
 
 #include <stddef.h>
