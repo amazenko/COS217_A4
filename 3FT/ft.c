@@ -113,12 +113,12 @@ static int FT_insertRestOfPath(char* path, Node parent, boolean type,
    copyPath = malloc(strlen(restPath)+1);
    if(copyPath == NULL)
       return MEMORY_ERROR;
-   stcpy(copyPath, restPath);
+   strcpy(copyPath, restPath);
    dirToken = strtok(copyPath, "/");
    dirNextToken = strtok(NULL, "/");
    
    while(dirNextToken != NULL) {
-      new = Node_create(dirToken, curr);
+      new = Node_createDir(dirToken, curr);
       newCount++;
 
       if(firstNew == NULL)
@@ -145,8 +145,10 @@ static int FT_insertRestOfPath(char* path, Node parent, boolean type,
    }
 
    if(dirToken != NULL) {
-      if(boolean)
-         new = Node_createFile(dirToken, curr, contents, length);
+      if(type) {
+         new = Node_createFile(dirToken, curr);
+         Node_setContents(new, contents, length);
+      }
       else
          new = Node_createDir(dirToken, curr);
       
@@ -189,7 +191,7 @@ static int FT_insertRestOfPath(char* path, Node parent, boolean type,
    }
 }
 
-static FT_removePathFrom(Node curr) {
+static void FT_removePathFrom(Node curr) {
    if(curr != NULL) {
       count -= Node_destroy(curr);
    }
@@ -218,7 +220,7 @@ static int FT_rmPathAt(char* path, Node curr) {
    }
    else
       return NO_SUCH_PATH;
-   
+}
 
 /* see ft.h for specification */
 int FT_insertDir(char *path){
@@ -234,7 +236,7 @@ int FT_insertDir(char *path){
    result = FT_insertRestOfPath(path, curr, FALSE, NULL, 0);
 
    assert(Checker_FT_isValid(isInitialized, root, count));
-   return 0;
+   return result;
 }
 
 /* see ft.h for specification */
@@ -242,7 +244,7 @@ boolean FT_containsDir(char *path){
    Node curr;
    boolean result;
 
-   assert(Checker_DT_isValid(isInitialized, root, count));
+   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
@@ -279,7 +281,7 @@ int FT_rmDir(char *path){
    else if (Node_isFile(curr))
       result = NOT_A_DIRECTORY;
    else
-      result FT_rmPathAt(path, curr);
+      result = FT_rmPathAt(path, curr);
    
    assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
@@ -306,7 +308,7 @@ boolean FT_containsFile(char *path){
    Node curr;
    boolean result;
 
-   assert(Checker_DT_isValid(isInitialized, root, count));
+   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
@@ -334,7 +336,7 @@ int FT_rmFile(char *path){
    assert(path != NULL);
 
    if(isInitialized)
-      return INITIALIZATION_ERROR;
+      result = INITIALIZATION_ERROR;
 
    curr = FT_traversePath(path);
    if(curr == NULL)
@@ -342,7 +344,7 @@ int FT_rmFile(char *path){
    else if (Node_isFile(curr))
       result = NOT_A_DIRECTORY;
    else
-      result FT_rmPathAt(path, curr);
+      result = FT_rmPathAt(path, curr);
    
    assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
@@ -353,7 +355,7 @@ void *FT_getFileContents(char *path){
    Node curr;
    void *result;
 
-   assert(Checker_DT_isValid(isInitialized, root, count));
+   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
@@ -377,7 +379,7 @@ void *FT_replaceFileContents(char *path, void *newContents,
    Node curr;
    void *result;
 
-   assert(Checker_DT_isValid(isInitialized, root, count));
+   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
@@ -400,7 +402,7 @@ int FT_stat(char *path, boolean *type, size_t *length){
    Node curr;
    boolean result;
 
-   assert(Checker_DT_isValid(isInitialized, root, count));
+   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
@@ -429,7 +431,7 @@ int FT_stat(char *path, boolean *type, size_t *length){
 /* see ft.h for specification */
 int FT_init(void){
    int result;
-   assert(Checker_DT_isValid(isInitialized, root, count));
+   assert(Checker_FT_isValid(isInitialized, root, count));
    if(isInitialized)
       result = INITIALIZATION_ERROR;
    else {
@@ -438,28 +440,28 @@ int FT_init(void){
       count = 0;
       result = SUCCESS;
    }
-   assert(Checker_DT_isValid(isInitialized, root, count));
+   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
 /* see ft.h for specification */
 int FT_destroy(void){
    int result;
-   assert(Checker_DT_isValid(isInitialized, root, count));
+   assert(Checker_FT_isValid(isInitialized, root, count));
    
    if(!isInitialized)
       result = INITIALIZATION_ERROR;
    else if(root == NULL)
       result = SUCCESS;
    else {
-      FT_removePathAt(Node_getPath(root), root);
+      FT_rmPathAt((char*)Node_getPath(root), root);
       root = NULL;
       count = 0;
       isInitialized = FALSE;
       result = SUCCESS;
    }
 
-   assert(Checker_DT_isValid(isInitialized, root, count));
+   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
@@ -507,31 +509,31 @@ char *FT_toString(){
    size_t totalStrlen = 1;
    char* result = NULL;
 
-   assert(Checker_DT_isValid(isInitialized, root, count));
+   assert(Checker_FT_isValid(isInitialized, root, count));
 
    if(!isInitialized)
       return NULL;
 
    nodes = DynArray_new(count);
-   (void) DT_preOrderTraversal(root, nodes, 0);
+   (void) FT_preOrderTraversal(root, nodes, 0);
 
-   DynArray_map(nodes, (void (*)(void *, void*)) DT_strlenAccumulate,
+   DynArray_map(nodes, (void (*)(void *, void*)) FT_strlenAccumulate,
                 (void*) &totalStrlen);
 
    result = malloc(totalStrlen);
    if(result == NULL) {
       DynArray_free(nodes);
-      assert(Checker_DT_isValid(isInitialized, root, count));
+      assert(Checker_FT_isValid(isInitialized, root, count));
       return NULL;
    }
 
    *result = '\0';
 
-   DynArray_map(nodes, (void (*)(void *, void*)) DT_strcatAccumulate,
+   DynArray_map(nodes, (void (*)(void *, void*)) FT_strcatAccumulate,
                 (void *) result);
 
    DynArray_free(nodes);
-   assert(Checker_DT_isValid(isInitialized, root, count));
+   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
