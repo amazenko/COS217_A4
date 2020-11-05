@@ -10,7 +10,6 @@
 
 #include "dynarray.h"
 #include "node.h"
-#include "checker.h"
 
 /*
    A node structure represents a directory in the directory tree
@@ -129,6 +128,7 @@ Node Node_createFile(const char* dir, Node parent) {
    new->isFile = TRUE;
    new->children = NULL;
    new->fileContents = NULL;
+   new->length = 0;
 
    return new;
 }
