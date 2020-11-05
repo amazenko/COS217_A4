@@ -25,7 +25,6 @@ static Node root;
 /* a counter of the number of Nodes in the hierarchy */
 static size_t count;
 
-/* ISNERT COMMENT - SHOULD ALREADY IN TREE WORK IF ITS FILE IN TREE? */
 /* Inserts a new path into the tree rooted at parent, with leaf being
    a node with path path, contents contents, length length, and type
    as its value for isFile.
@@ -42,6 +41,7 @@ static size_t count;
    Else, return SUCCESS. */
 static int FT_insertRestOfPath(char* path, Node parent, boolean type,
                                void *contents, size_t length) {
+  
    Node curr = parent;
    Node firstNew = NULL;
    Node new;
@@ -54,37 +54,49 @@ static int FT_insertRestOfPath(char* path, Node parent, boolean type,
 
    assert(path != NULL);
 
-   if(curr == NULL) {
-      if(root != NULL){
-         /* return NO_SUCH_PATH;*/
+   if(curr == NULL && root != NULL) {
+         /* If there is a root, but the parent
+            is NULL, then it is a conflicting path
+            error. NOTE: ft.h stipulates we should
+            return NO_SUCH_PATH instead if this happens for a file, but
+            the checker suggests this more generally valid approach */
          return CONFLICTING_PATH;
-      }
-      /* else if(root != N) {
-         return CONFLICTING_PATH;
-         }*/
    }
    else if(!strcmp(path, Node_getPath(curr)))
       return ALREADY_IN_TREE;
    else if (Node_isFile(curr))
       return NOT_A_DIRECTORY;
    else {
+      /* If there are no path issues, rest of path denotes the portion
+         of the path which remains to be added to the data structure. */
       restPath += (strlen(Node_getPath(curr)) + 1);
    }
 
+   /* Make a copy of rest of path to iterate over. */
    copyPath = malloc(strlen(restPath)+1);
    if(copyPath == NULL)
       return MEMORY_ERROR;
    strcpy(copyPath, restPath);
+
+   /* Name of the first node to add. */
    dirToken = strtok(copyPath, "/");
+   /* Name of the second node to add. */
    dirNextToken = strtok(NULL, "/");
 
+   /* Keeps track of the token (Node) to be added and its child. Iterate
+      through, adding non-leaf directories traversing down the path. */
    while(dirNextToken != NULL) {
+      /* If it's not a leaf, it cannot be a file so make new dir. */
       new = Node_createDir(dirToken, curr);
       newCount++;
 
+      /* Store firstNew as the "root" associated with
+         rest of path. */
       if(firstNew == NULL)
          firstNew = new;
       else {
+         /* For nodes other than the first, attempt to link them in
+            the order dictated by the path. */
          result = HANDLER_linkParentToChild(curr, new);
          if(result != SUCCESS) {
             (void) Node_destroy(new);
@@ -94,21 +106,27 @@ static int FT_insertRestOfPath(char* path, Node parent, boolean type,
          }
       }
 
+      /* MEMORY_ERROR if the node being added is NULL. */
       if(new == NULL) {
          (void) Node_destroy(firstNew);
          free(copyPath);
          return MEMORY_ERROR;
       }
 
+      /* Set curr to the most recently created node, iterate one step
+         through tokens in restPath. */
       curr = new;
       dirToken = dirNextToken;
       dirNextToken = strtok(NULL, "/");
    }
-
+   
+   /* If the child is NULL but there is another node to add, we enter
+      this block and append the leaf to the data structure. Internals
+      analogous to previous while loop. */
    if(dirToken != NULL) {
       if(type) {
          new = Node_createFile(dirToken, curr);
-         Node_setContents(new, contents, length);
+         (void)Node_setContents(new, contents, length);
       }
       else
          new = Node_createDir(dirToken, curr);
@@ -137,12 +155,15 @@ static int FT_insertRestOfPath(char* path, Node parent, boolean type,
 
    free(copyPath);
 
+   /* If the tree was initially empty, let this inserted path be the
+      entire data structure. */
    if(parent == NULL) {
       root = firstNew;
       count = newCount;
       return SUCCESS;
    }
    else {
+      /* Link the added path to the data structure. */
       result = HANDLER_linkParentToChild(parent, firstNew);
       if(result == SUCCESS)
          count += newCount;
@@ -358,7 +379,7 @@ void *FT_replaceFileContents(char *path, void *newContents,
 /* see ft.h for specification */
 int FT_stat(char *path, boolean *type, size_t *length){
    Node curr;
-   boolean result;
+   int result;
 
    assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
@@ -366,7 +387,7 @@ int FT_stat(char *path, boolean *type, size_t *length){
    assert(length != NULL);
 
    if(!isInitialized)
-      result = INITIALIZATION_ERROR ;
+      return INITIALIZATION_ERROR;
 
    curr = HANDLER_traversePathFrom(path, root);
 
@@ -444,7 +465,7 @@ static size_t FT_preOrderTraversal(Node n, DynArray_T d, size_t i) {
 }
 
 /* see ft.h for specification */
-char *FT_toString(){
+char *FT_toString(void){
    DynArray_T nodes;
    size_t totalStrlen = 1;
    char* result = NULL;
