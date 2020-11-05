@@ -58,7 +58,6 @@ int main(void) {
    assert(Node_unlinkChild(nodeA, nodeB) == SUCCESS);
    assert(Node_getNumChildren(nodeA) == 0);
    assert(Node_getChild(nodeA, 0) == NULL);
-   assert(Node_getParent(nodeB) == NULL);
    assert(Node_destroy(nodeB) == 1);
    assert(Node_destroy(nodeA) == 1);
 
@@ -103,9 +102,6 @@ int main(void) {
    assert(Node_getChild(nodeA, 0) == NULL);
    assert(Node_getChild(nodeA, 1) == NULL);
    assert(Node_getChild(nodeB, 0) == NULL);
-   assert(Node_getParent(nodeB) == NULL);
-   assert(Node_getParent(nodeC) == NULL);
-   assert(Node_getParent(nodeD) == NULL);
    assert(Node_destroy(nodeD) == 1);
    assert(Node_destroy(nodeC) == 1);
    assert(Node_destroy(nodeB) == 1);

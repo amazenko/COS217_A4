@@ -30,8 +30,12 @@ struct node {
       stored in sorted order by pathname */
    DynArray_T children;
 
-   /* the contents of the file if this node is a file rather than a directory */
+   /* the contents of the file if this node is a file rather than a
+      directory */
    void* fileContents;
+
+   /* the length of the file contents */
+   size_t length;
 };
 
 
@@ -72,9 +76,9 @@ Node Node_createDir(const char* dir, Node parent){
    Node new;
 
    assert(dir != NULL);
-   assert(Checker_Node_isValid(parent));
-
-   assert(!parent->isFile);
+   if (parent != NULL) {
+      assert(!parent->isFile);
+   }
 
    new = malloc(sizeof(struct node));
    if(new == NULL)
@@ -97,7 +101,7 @@ Node Node_createDir(const char* dir, Node parent){
    }
 
    new->fileContents = NULL;
-   assert(Checker_Node_isValid(new));
+   new->length = 0;
    return new;
 }
 
@@ -106,9 +110,9 @@ Node Node_createFile(const char* dir, Node parent) {
    Node new;
 
    assert(dir != NULL);
-   assert(Checker_Node_isValid(parent));
 
-   assert(!parent->isFile);
+   if(parent != NULL)
+      assert(!parent->isFile);
 
    new = malloc(sizeof(struct node));
    if(new == NULL)
@@ -126,7 +130,6 @@ Node Node_createFile(const char* dir, Node parent) {
    new->children = NULL;
    new->fileContents = NULL;
 
-   assert(Checker_Node_isValid(new));
    return new;
 }
 
@@ -137,7 +140,6 @@ size_t Node_destroy(Node n) {
    Node c;
 
    assert(n != NULL);
-   assert(Checker_Node_isValid(n));
 
    if (!n->isFile) {
       for(i = 0; i < DynArray_getLength(n->children); i++)
@@ -147,7 +149,7 @@ size_t Node_destroy(Node n) {
       }
       DynArray_free(n->children);
    }
-   else 
+   else
       free(n->fileContents);
 
    free(n->path);
@@ -159,7 +161,6 @@ size_t Node_destroy(Node n) {
 
 const char* Node_getPath(Node n) {
    assert(n != NULL);
-   assert(Checker_Node_isValid(n));
 
    return n->path;
 }
@@ -168,8 +169,6 @@ const char* Node_getPath(Node n) {
 int Node_compare(Node node1, Node node2) {
    assert(node1 != NULL);
    assert(node2 != NULL);
-   assert(Checker_Node_isValid(node1));
-   assert(Checker_Node_isValid(node2));
 
    return strcmp(node1->path, node2->path);
 }
@@ -177,15 +176,40 @@ int Node_compare(Node node1, Node node2) {
 /* see node.h for specification */
 boolean Node_isFile(Node n) {
    assert (n != NULL);
-   assert(Checker_Node_isValid(n));
 
    return n->isFile;
 }
 
 /* see node.h for specification */
+size_t Node_getLength(Node n) {
+   assert(n != NULL);
+
+   return n->length;
+}
+
+/* see node.h for specification */
+void* Node_getContents(Node n) {
+   assert(n != NULL);
+
+   return n->fileContents;
+}
+
+/* see node.h for specification */
+void* Node_setContents(Node n, void* newContents, size_t newLength) {
+   void *oldContents;
+
+   assert(n != NULL);
+
+   oldContents = n->fileContents;
+   n->fileContents = newContents;
+   n->length = newLength;
+
+   return oldContents;
+}
+
+/* see node.h for specification */
 size_t Node_getNumChildren(Node n) {
    assert(n != NULL);
-   assert(Checker_Node_isValid(n));
 
    if (n->isFile)
       return 0;
@@ -201,7 +225,6 @@ int Node_hasChild(Node n, const char* path, size_t* childID) {
 
    assert(n != NULL);
    assert(path != NULL);
-   assert(Checker_Node_isValid(n));
 
    if (n->isFile)
       return NOT_A_DIRECTORY;
@@ -221,7 +244,6 @@ int Node_hasChild(Node n, const char* path, size_t* childID) {
 /* see node.h for specification */
 Node Node_getChild(Node n, size_t childID) {
    assert(n != NULL);
-   assert(Checker_Node_isValid(n));
 
    if (n->isFile)
       return NULL;
@@ -235,7 +257,6 @@ Node Node_getChild(Node n, size_t childID) {
 /* see node.h for specification */
 Node Node_getParent(Node n) {
    assert(n != NULL);
-   assert(Checker_Node_isValid(n));
 
    return n->parent;
 }
@@ -247,8 +268,6 @@ int Node_linkChild(Node parent, Node child) {
 
    assert(parent != NULL);
    assert(child != NULL);
-   assert(Checker_Node_isValid(parent));
-   assert(Checker_Node_isValid(child));
 
    if(parent->isFile)
       return NOT_A_DIRECTORY;
@@ -282,8 +301,6 @@ int Node_unlinkChild(Node parent, Node child) {
 
    assert(parent != NULL);
    assert(child != NULL);
-   assert(Checker_Node_isValid(parent));
-   assert(Checker_Node_isValid(child));
 
    if (parent->isFile)
       return NOT_A_DIRECTORY;
@@ -304,7 +321,6 @@ int Node_addChild(Node parent, const char* dir, boolean isFile) {
 
    assert(parent != NULL);
    assert(dir != NULL);
-   assert(Checker_Node_isValid(parent));
 
    if (parent->isFile)
       new = Node_createFile(dir, parent);
@@ -327,7 +343,6 @@ char* Node_toString(Node n) {
    char* copyPath;
 
    assert(n != NULL);
-   assert(Checker_Node_isValid(n));
 
    copyPath = malloc(strlen(n->path)+1);
    if(copyPath == NULL)
