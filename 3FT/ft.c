@@ -12,7 +12,6 @@
 #include "dynarray.h"
 #include "ft.h"
 #include "node.h"
-#include "checker.h"
 #include "handler.h"
 
 /*--------------------------------------------------------------------*/
@@ -207,7 +206,6 @@ int FT_insertDir(char *path){
    Node curr;
    int result;
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
@@ -215,7 +213,6 @@ int FT_insertDir(char *path){
    curr = HANDLER_traversePathFrom(path, root);
    result = FT_insertRestOfPath(path, curr, FALSE, NULL, 0);
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
@@ -224,7 +221,6 @@ boolean FT_containsDir(char *path){
    Node curr;
    boolean result;
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
@@ -239,7 +235,6 @@ boolean FT_containsDir(char *path){
    else
       result = !Node_isFile(curr);
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
@@ -248,7 +243,6 @@ int FT_rmDir(char *path){
    Node curr;
    int result;
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
@@ -262,7 +256,6 @@ int FT_rmDir(char *path){
    else
       result = FT_rmPathAt(path, curr);
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
@@ -271,14 +264,12 @@ int FT_insertFile(char *path, void *contents, size_t length){
    Node curr;
    int result;
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
       return INITIALIZATION_ERROR;
    curr = HANDLER_traversePathFrom(path, root);
    result = FT_insertRestOfPath(path, curr, TRUE, contents, length);
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
@@ -287,7 +278,6 @@ boolean FT_containsFile(char *path){
    Node curr;
    boolean result;
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
@@ -302,7 +292,6 @@ boolean FT_containsFile(char *path){
    else
       result = Node_isFile(curr);
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
@@ -311,7 +300,6 @@ int FT_rmFile(char *path){
    Node curr;
    int result;
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(isInitialized)
@@ -325,7 +313,6 @@ int FT_rmFile(char *path){
    else
       result = FT_rmPathAt(path, curr);
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
@@ -334,7 +321,6 @@ void *FT_getFileContents(char *path){
    Node curr;
    void *result;
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
@@ -348,7 +334,6 @@ void *FT_getFileContents(char *path){
    else
       result = Node_getContents(curr);
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
@@ -358,7 +343,6 @@ void *FT_replaceFileContents(char *path, void *newContents,
    Node curr;
    void *result;
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
    if(!isInitialized)
@@ -372,7 +356,6 @@ void *FT_replaceFileContents(char *path, void *newContents,
    else
       result = Node_setContents(curr, newContents, newLength);
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
@@ -381,7 +364,6 @@ int FT_stat(char *path, boolean *type, size_t *length){
    Node curr;
    int result;
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
    assert(type != NULL);
    assert(length != NULL);
@@ -405,14 +387,12 @@ int FT_stat(char *path, boolean *type, size_t *length){
       result = SUCCESS;
    }
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
 /* see ft.h for specification */
 int FT_init(void){
    int result;
-   assert(Checker_FT_isValid(isInitialized, root, count));
    if(isInitialized)
       result = INITIALIZATION_ERROR;
    else {
@@ -421,14 +401,12 @@ int FT_init(void){
       count = 0;
       result = SUCCESS;
    }
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
 /* see ft.h for specification */
 int FT_destroy(void){
    int result;
-   assert(Checker_FT_isValid(isInitialized, root, count));
    
    if(!isInitialized)
       result = INITIALIZATION_ERROR;
@@ -442,7 +420,6 @@ int FT_destroy(void){
       result = SUCCESS;
    }
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
@@ -470,8 +447,6 @@ char *FT_toString(void){
    size_t totalStrlen = 1;
    char* result = NULL;
 
-   assert(Checker_FT_isValid(isInitialized, root, count));
-
    if(!isInitialized)
       return NULL;
 
@@ -484,7 +459,6 @@ char *FT_toString(void){
    result = malloc(totalStrlen);
    if(result == NULL) {
       DynArray_free(nodes);
-      assert(Checker_FT_isValid(isInitialized, root, count));
       return NULL;
    }
 
@@ -494,7 +468,6 @@ char *FT_toString(void){
                 (void *) result);
 
    DynArray_free(nodes);
-   assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
 
