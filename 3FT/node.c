@@ -227,6 +227,7 @@ int Node_hasChild(Node n, const char* path, size_t* childID) {
 
    assert(n != NULL);
    assert(path != NULL);
+   assert(childID != NULL);
 
    if (n->isFile)
       return NOT_A_DIRECTORY;
@@ -271,6 +272,7 @@ int Node_linkChild(Node parent, Node child) {
    assert(parent != NULL);
    assert(child != NULL);
 
+   /* Handle error cases */
    if(parent->isFile)
       return NOT_A_DIRECTORY;
    if(Node_hasChild(parent, child->path, NULL))
@@ -291,6 +293,7 @@ int Node_linkChild(Node parent, Node child) {
          (int (*)(const void*, const void*)) Node_compare) == 1)
       return ALREADY_IN_TREE;
 
+   /* if no errors, add the child to the dynarray */
    if(DynArray_addAt(parent->children, i, child) == TRUE)
       return SUCCESS;
    else
