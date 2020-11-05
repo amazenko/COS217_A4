@@ -134,7 +134,7 @@ boolean Checker_FT_isValid(boolean isInit, Node root, size_t count) {
          return FALSE;
       }
    }
-   else{
+   /* else{
       if(count == 0) {
          fprintf(stderr, "Initialized, but incorrect # of nodes\n");
          return FALSE;
@@ -143,7 +143,7 @@ boolean Checker_FT_isValid(boolean isInit, Node root, size_t count) {
          fprintf(stderr, "Initialized but has no root\n");
          return FALSE;
       }
-   }
+      }*/
    /* Now checks invariants recursively at each Node from the root. */
    return Checker_treeCheck(root);
 }

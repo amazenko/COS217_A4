@@ -96,17 +96,19 @@ static int FT_insertRestOfPath(char* path, Node parent, boolean type,
    assert(path != NULL);
 
    if(curr == NULL) {
-      if(type)
-         return NO_SUCH_PATH;
-      else if(root != NULL) {
+      if(type){
+         /* return NO_SUCH_PATH;*/
          return CONFLICTING_PATH;
       }
+      else if(root != NULL) {
+         return CONFLICTING_PATH;
+         }
    }
+   else if(!strcmp(path, Node_getPath(curr)))
+      return ALREADY_IN_TREE;
    else if (Node_isFile(curr))
       return NOT_A_DIRECTORY;
    else {
-      if(!strcmp(path, Node_getPath(curr)))
-         return ALREADY_IN_TREE;
       restPath += (strlen(Node_getPath(curr)) + 1);
    }
 
@@ -272,7 +274,7 @@ int FT_rmDir(char *path){
    assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
 
-   if(isInitialized)
+   if(!isInitialized)
       return INITIALIZATION_ERROR;
 
    curr = FT_traversePath(path);
@@ -341,8 +343,8 @@ int FT_rmFile(char *path){
    curr = FT_traversePath(path);
    if(curr == NULL)
       result = NO_SUCH_PATH;
-   else if (Node_isFile(curr))
-      result = NOT_A_DIRECTORY;
+   else if (!Node_isFile(curr))
+      result = NOT_A_FILE;
    else
       result = FT_rmPathAt(path, curr);
    
