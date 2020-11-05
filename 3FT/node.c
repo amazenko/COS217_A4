@@ -227,7 +227,6 @@ int Node_hasChild(Node n, const char* path, size_t* childID) {
 
    assert(n != NULL);
    assert(path != NULL);
-   assert(childID != NULL);
 
    if (n->isFile)
       return NOT_A_DIRECTORY;
