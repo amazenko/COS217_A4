@@ -16,7 +16,15 @@ complete the assignment? COPY THE LIST of authorized sources of
 information given in the "Policies" web page to this section of the
 readme file, and edit it as appropriate.
 
+The course's lectures.
 
+The course's precepts.
+
+The course's website.
+
+The man pages on the armlab cluster.
+
+The course's current staff members outside of class time through Ed.
 
 ------------------------------------------------------------------------
 Student 2: What authorized sources of information did you use to
@@ -38,7 +46,7 @@ nature of the interaction, may additionally require the interaction
 being reported to the Committee on Discipline. Write "None" if you used
 no unauthorized sources of information.
 
-
+None.
 
 ------------------------------------------------------------------------
 Student 2: What unauthorized sources of information did you use to
@@ -58,7 +66,9 @@ no unauthorized sources of information.
 Student 1: What is your assessment of the assignment? Was it helpful?
 Was it fun?
 
-
+It was stressful! It was fun to learn how trees worked, but I think it
+could have been presented in a little better way. The assingment may
+get better overthe years with feedback, however.
 
 ------------------------------------------------------------------------
 Student 2: What is your assessment of the assignment? Was it helpful?
@@ -79,7 +89,7 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
-
+None.
 
 ------------------------------------------------------------------------
 What warnings does critTer generate on your Part 3 code, and what are
@@ -87,7 +97,22 @@ your disagreements with them? Copy the critTer warnings here, and
 express your disagreement after each warning. If there are no
 warnings, then write "None."
 
+   ft.c: line 44: medium priority:
+      Do you want to validate 'contents' through an assert?
+As we do not own the pointer to the file contents, we shouldn't be able
+to validate it. The client should handle that.
 
+   ft.c: line 249: medium priority:
+      Do you want to validate 'contents' through an assert?
+See above.
+
+   node.c: line 223: medium priority:
+      Do you want to validate 'childID' through an assert?
+See above.
+
+   ft.c: line 336: medium priority:
+      Do you want to validate 'newContents' through an assert?
+See above.
 
 ------------------------------------------------------------------------
 What warnings does splint generate for Part 2's checker, and what are
@@ -95,7 +120,7 @@ your disagreements with them? Copy the splint warnings here, and
 express your disagreement after each warning. If there are no
 warnings, then write "None."
 
-
+None.
 
 ------------------------------------------------------------------------
 What warnings does splint generate on Part 3, and what are your
@@ -103,7 +128,14 @@ disagreements with them? Copy the splint warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
+Function exported but not used outside node: Node_compare
+  A declaration is exported, but not used outside this module. Declaration can
+    use static qualifier. (Use -exportlocal to inhibit warning)
+       node.c:176:1: Definition of Node_compare
 
+while the ft_client never uses Node_compare (so it is only ever used in
+the Node module), comparing two Nodes is a useful function to be able to
+access. Therefore, it shouldn't be static.
 
 ------------------------------------------------------------------------
 For each of the first three faulty BDT implementations required by Step
