@@ -362,6 +362,8 @@ int FT_stat(char *path, boolean *type, size_t *length){
 
    assert(Checker_FT_isValid(isInitialized, root, count));
    assert(path != NULL);
+   assert(type != NULL);
+   assert(length != NULL);
 
    if(!isInitialized)
       result = INITIALIZATION_ERROR ;

@@ -4,6 +4,8 @@
 /*--------------------------------------------------------------------*/
 
 #include <stddef.h>
+#include <string.h>
+#include <assert.h>
 #include "a4def.h"
 #include "node.h"
 
@@ -28,7 +30,7 @@ Node HANDLER_traversePathFrom(char* path, Node curr) {
       if(Node_isFile(curr))
          return curr;
       for(i = 0; i < Node_getNumChildren(curr); i++) {
-         found = FT_traversePathFrom(path, Node_getChild(curr,i));
+         found = HANDLER_traversePathFrom(path, Node_getChild(curr,i));
          if(found != NULL)
             return found;
       }
@@ -36,7 +38,7 @@ Node HANDLER_traversePathFrom(char* path, Node curr) {
    }
    return NULL;
 }
-   
+
 
 /* Given a prospective parent and child Node,
    adds child to parent's children list, if possible.
