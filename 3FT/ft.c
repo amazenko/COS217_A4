@@ -81,6 +81,20 @@ static int FT_linkParentToChild(Node parent, Node child) {
 }
 
 /* ISNERT COMMENT - SHOULD ALREADY IN TREE WORK IF ITS FILE IN TREE? */
+/* Inserts a new path into the tree rooted at parent, with leaf being
+   a node with path path, contents contents, length length, and type
+   as its value for isFile.
+   If the root of the data structure is NULL, then inserts this path's
+   first node as the root.
+   If the parent is NULL but there exists a root in the tree, return
+   CONFLICTING_PATH.
+   If the given path exists, return ALREADY_IN_TREE.
+   If parent is a file, return NOT_A_DIRECTORY.
+   If there's an allocation error in creating any of the new nodes or
+   their fields, return MEMORY_ERROR.
+   If there is an error linking any of the new nodes, return
+   PARENT_CHILD_ERROR.
+   Else, return SUCCESS. */
 static int FT_insertRestOfPath(char* path, Node parent, boolean type,
                                void *contents, size_t length) {
    Node curr = parent;
@@ -96,13 +110,13 @@ static int FT_insertRestOfPath(char* path, Node parent, boolean type,
    assert(path != NULL);
 
    if(curr == NULL) {
-      if(type){
+      if(root != NULL){
          /* return NO_SUCH_PATH;*/
          return CONFLICTING_PATH;
       }
-      else if(root != NULL) {
+      /* else if(root != N) {
          return CONFLICTING_PATH;
-         }
+         }*/
    }
    else if(!strcmp(path, Node_getPath(curr)))
       return ALREADY_IN_TREE;
@@ -193,12 +207,18 @@ static int FT_insertRestOfPath(char* path, Node parent, boolean type,
    }
 }
 
+/* Destroys the entire hierarchy of Nodes rooted at curr, including
+   curr itself. */
 static void FT_removePathFrom(Node curr) {
    if(curr != NULL) {
       count -= Node_destroy(curr);
    }
 }
 
+/* Removes the directory hierarchy rooted at path starting from Node
+   curr. If curr is the data structure's root, root becomes NULL.
+   Returns NO_SUCH_PATH if curr is not the Node for path, 
+   otherwise SUCCESS. */
 static int FT_rmPathAt(char* path, Node curr) {
    Node parent;
 
@@ -210,8 +230,6 @@ static int FT_rmPathAt(char* path, Node curr) {
    if(!strcmp(path, Node_getPath(curr))) {
       if(parent == NULL){
          root = NULL;
-         count = 0;
-         isInitialized = FALSE;
       }
       else
          Node_unlinkChild(parent, curr);
@@ -275,7 +293,7 @@ int FT_rmDir(char *path){
    assert(path != NULL);
 
    if(!isInitialized)
-      return INITIALIZATION_ERROR;
+      result = INITIALIZATION_ERROR;
 
    curr = FT_traversePath(path);
    if(curr == NULL)
@@ -538,15 +556,4 @@ char *FT_toString(){
    assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
-
-
-
-
-
-
-
-
-
-
-
 
