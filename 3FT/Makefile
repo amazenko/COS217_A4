@@ -5,7 +5,7 @@
 
 all: ft_client
 
-ft_client: ft_client.o ft.o dynarray.o node.o checker.o handler.o
+ft_client: ft_client.o ft.o dynarray.o node.o handler.o
 	gcc217 -g ft_client.o ft.o checker.o node.o dynarray.o handler.o -o ft_client
 
 ft_client.o: ft_client.c ft.h
@@ -19,9 +19,6 @@ node.o: node.c node.h
 
 dynarray.o: dynarray.c dynarray.h
 	gcc217 -c dynarray.c
-
-checker.o: checker.c checker.h
-	gcc217 -c checker.c
 
 handler.o: handler.c handler.h
 	gcc217 -c handler.c
