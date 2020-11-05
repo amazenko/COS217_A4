@@ -84,6 +84,11 @@ size_t Node_getLength(Node n);
 void* Node_getContents(Node n);
 
 /*
+  sets the contents of n to be newContents with length newLength.
+  Returns the old contents of the node.
+*/
+void* Node_setContents(Node n, void* newContents, size_t newLength);
+/*
   Returns the number of child directories n has.
 */
 size_t Node_getNumChildren(Node n);

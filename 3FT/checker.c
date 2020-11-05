@@ -30,12 +30,12 @@ boolean Checker_Node_isValid(Node n) {
       fprintf(stderr, "Node has invalid path\n");
       return FALSE;
    }
-   
+
    /* Check that, if Node is a file, the children array
       is NULL */
    if (Node_isFile(n)) {
-      if(Node_getNumChildren(n) != -1) {
-         fprintf(stderr, "Node is a file but has a children array\n");
+      if(Node_getNumChildren(n) != 0) {
+         fprintf(stderr, "Node is a file but has a child\n");
          return FALSE;
       }
    }
