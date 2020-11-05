@@ -96,13 +96,14 @@ static boolean Checker_treeCheck(Node n) {
          if(c == 0){
             previousPath = (char*) Node_getPath(child);
          }
+         /*
          else{
             if(strcmp((const char*)previousPath,
                       Node_getPath(child)) >= 0){
                   fprintf(stderr, "Children are incorrectly ordered\n");
                   return FALSE;
             }
-         }
+            } */
 
          /* if recurring down one subtree results in a failed check
             farther down, passes the failure back up immediately */

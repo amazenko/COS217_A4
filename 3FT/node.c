@@ -168,7 +168,11 @@ int Node_compare(Node node1, Node node2) {
    assert(node1 != NULL);
    assert(node2 != NULL);
 
-   return strcmp(node1->path, node2->path);
+   if (node1->isFile == node2->isFile)
+      return strcmp(node1->path, node2->path);
+   if (node1->isFile && !node2->isFile)
+      return -1;
+   return 1;
 }
 
 /* see node.h for specification */
