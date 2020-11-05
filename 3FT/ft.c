@@ -132,7 +132,7 @@ static int FT_insertRestOfPath(char* path, Node parent, boolean type,
    strcpy(copyPath, restPath);
    dirToken = strtok(copyPath, "/");
    dirNextToken = strtok(NULL, "/");
-   
+
    while(dirNextToken != NULL) {
       new = Node_createDir(dirToken, curr);
       newCount++;
@@ -167,7 +167,7 @@ static int FT_insertRestOfPath(char* path, Node parent, boolean type,
       }
       else
          new = Node_createDir(dirToken, curr);
-      
+
       newCount++;
 
       if(firstNew == NULL)
@@ -217,7 +217,7 @@ static void FT_removePathFrom(Node curr) {
 
 /* Removes the directory hierarchy rooted at path starting from Node
    curr. If curr is the data structure's root, root becomes NULL.
-   Returns NO_SUCH_PATH if curr is not the Node for path, 
+   Returns NO_SUCH_PATH if curr is not the Node for path,
    otherwise SUCCESS. */
 static int FT_rmPathAt(char* path, Node curr) {
    Node parent;
@@ -281,7 +281,6 @@ boolean FT_containsDir(char *path){
 
    assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
-   
 }
 
 /* see ft.h for specification */
@@ -302,7 +301,7 @@ int FT_rmDir(char *path){
       result = NOT_A_DIRECTORY;
    else
       result = FT_rmPathAt(path, curr);
-   
+
    assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
@@ -365,7 +364,7 @@ int FT_rmFile(char *path){
       result = NOT_A_FILE;
    else
       result = FT_rmPathAt(path, curr);
-   
+
    assert(Checker_FT_isValid(isInitialized, root, count));
    return result;
 }
